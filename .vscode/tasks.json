@@ -1,9 +1,11 @@
 {
+    "version": "2.0.0",
     "tasks": [
         // C编译任务，使用gcc
         {
             "type": "cppbuild",
             "label": "C(gcc) Build",
+            "detail": "C程序编译任务",
             "command": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
@@ -21,13 +23,13 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "C程序构建任务"
+            }
         },
         // C++ 编译任务，使用g++
         {
             "type": "cppbuild",
             "label": "C++(g++) Build",
+            "detail": "C++程序编译任务",
             "command": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
@@ -42,9 +44,21 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build",
-            "detail": "C++程序构建任务"
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Delete Built Files",
+            "detail": "删除调试时构建的C/C++文件",
+            "command": "rm",
+            "args": [
+                "-f",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "windows":{
+                "command": "Remove-Item",
+                "args": ["-Force", "${fileDirname}\\${fileBasenameNoExtension}.exe"]
+            }
         }
-    ],
-    "version": "2.0.0"
+    ]
 }
