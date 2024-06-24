@@ -1,4 +1,4 @@
-{
+{   "version": "2.0.0",
     "configurations": [
         // C 调试配置
         {
@@ -26,6 +26,7 @@
                 }
             ],
             "preLaunchTask": "C(gcc) Build"
+            ,"postDebugTask": "Delete Built Files"
         },
         // C++ 调试配置
         {
@@ -53,7 +54,7 @@
                 }
             ],
             "preLaunchTask": "C++(g++) Build"
+            ,"postDebugTask": "Delete Built Files"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }
