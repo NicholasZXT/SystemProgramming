@@ -1,10 +1,10 @@
-# CppDemo
-C、C++练习
+# System Programming
+系统编程练习，包含C、C++、Rust.
 
 项目结构
 
 ```txt
-my_project/
+system-programming/
 ├── build/                # 编译输出目录
 ├── cmake-build-debug/    # 如果使用CMake和IDE如CLion, 这里存放构建文件
 ├── docs/                 # 文档（设计文档、API文档等）
