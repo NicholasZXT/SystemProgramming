@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+#.pdb
+
+
+# Added by cargo, for rust
+/target
