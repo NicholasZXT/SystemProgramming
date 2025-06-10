@@ -28,6 +28,7 @@
             "preLaunchTask": "C(gcc) Build"
             ,"postDebugTask": "Delete Built Files"
         },
+
         // C++ 调试配置
         {
             "name": "g++调试",
@@ -55,6 +56,25 @@
             ],
             "preLaunchTask": "C++(g++) Build"
             ,"postDebugTask": "Delete Built Files"
+        },
+
+        // Rust调试配置
+        {
+            "name": "rust调试",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=${fileBasenameNoExtension}"
+                ],
+                "filter": {
+                    "name": "${fileBasenameNoExtension}",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
         }
     ]
 }

@@ -1,0 +1,13 @@
+[package]
+name = "basic_rust"
+version = "0.1.0"
+edition = "2024"
+description = "A simple tutorial for rust and c/c++"
+readme = "README.md"
+
+[dependencies]
+
+
+[[bin]]
+name = "hello"
+path = "src/basic_rust/hello.rs"
