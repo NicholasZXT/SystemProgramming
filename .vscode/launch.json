@@ -5,14 +5,16 @@
             "name": "gcc调试",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin",
-            "environment": [],
-            "externalConsole": false,
+            "cwd": "${cwd}",
+            "environment": [
+                {"name": "SOME", "value": "some-value"}
+            ],
             "MIMode": "gdb",
-            "miDebuggerPath": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "externalConsole": false,
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -25,8 +27,13 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C(gcc) Build"
-            ,"postDebugTask": "Delete Built Files"
+            "preLaunchTask": "C(gcc) Build",
+            // "postDebugTask": "Delete Build Files",
+            "presentation": {
+                "hidden": false,
+                "order": 1,
+                "focus": true,
+            }
         },
 
         // C++ 调试配置
@@ -34,11 +41,13 @@
             "name": "g++调试",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
+            "cwd": "${cwd}",
+            "environment": [
+                {"name": "SOME", "value": "some-value"}
+            ],
             "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
@@ -54,15 +63,23 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C++(g++) Build"
-            ,"postDebugTask": "Delete Built Files"
+            "preLaunchTask": "C++(g++) Build",
+            // "postDebugTask": "Delete Build Files",
+            "presentation": {
+                "hidden": false,
+                "order": 1,
+                "focus": true,
+            }
         },
 
         // Rust调试配置
         {
-            "name": "rust调试",
+            "name": "Rust调试",
             "type": "lldb",
             "request": "launch",
+            "args": [],
+            "cwd": "${cwd}",
+            "env": {},
             "cargo": {
                 "args": [
                     "build",
@@ -73,8 +90,6 @@
                     "kind": "bin"
                 }
             },
-            "args": [],
-            "cwd": "${workspaceFolder}",
         }
     ]
 }

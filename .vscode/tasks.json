@@ -12,10 +12,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${cwd}${/}build${/}${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin"
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -23,8 +23,18 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                // "reveal": "always",
+                "revealProblems": "onProblem",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
             }
         },
+
         // C++ 编译任务，使用g++
         {
             "type": "cppbuild",
@@ -36,7 +46,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${cwd}${/}build${/}${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -44,20 +54,38 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
+
+        // C/C++ 清理任务，删除已构建文件
         {
             "type": "shell",
-            "label": "Delete Built Files",
+            "label": "Delete Build Files",
             "detail": "删除调试时构建的C/C++文件",
             "command": "rm",
             "args": [
                 "-f",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                // "${cwd}${/}build${/}${fileBasenameNoExtension}.exe"
+                "${cwd}${/}build${/}*"
             ],
             "windows":{
                 "command": "Remove-Item",
-                "args": ["-Force", "${fileDirname}\\${fileBasenameNoExtension}.exe"]
+                "args": [
+                    "-Force",
+                    // "${cwd}${/}build${/}${fileBasenameNoExtension}.exe"
+                    "${cwd}${/}build${/}$*"
+                ]
+            },
+            "presentation": {
+                "echo": true,
+                "revealProblems": "onProblem",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
             }
         }
     ]
