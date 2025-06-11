@@ -4,7 +4,7 @@
         // C编译任务，使用gcc
         {
             "type": "cppbuild",
-            "label": "C(gcc) Build",
+            "label": "gcc Build",
             "detail": "C程序编译任务",
             "command": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
             "args": [
@@ -22,7 +22,7 @@
             ],
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "presentation": {
                 "echo": true,
@@ -38,7 +38,7 @@
         // C++ 编译任务，使用g++
         {
             "type": "cppbuild",
-            "label": "C++(g++) Build",
+            "label": "g++ Build",
             "detail": "C++程序编译任务",
             "command": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
@@ -56,14 +56,14 @@
             ],
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             }
         },
 
         // C/C++ 清理任务，删除已构建文件
         {
             "type": "shell",
-            "label": "Delete Build Files",
+            "label": "Clean C/C++ Build Files",
             "detail": "删除调试时构建的C/C++文件",
             "command": "rm",
             "args": [
@@ -87,6 +87,45 @@
                 "showReuseMessage": true,
                 "clear": false
             }
+        }
+
+        // Rust 构建任务
+                {
+            "type": "shell",
+            "label": "Rust Cargo Build",
+            "detail": "Rust程序编译任务",
+            "command": "cargo.exe",
+            "args": [
+                "build",
+                "--bin=${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+
+        // Rust 清理任务
+        {
+            "type": "shell",
+            "label": "Rust Cargo Clean",
+            "detail": "Rust程序清理任务",
+            "command": "cargo",
+            "args": [
+                "clean"
+            ],
+            "options": {
+                "cwd": "${cwd}"
+            },
+            "windows": {
+                "command": "cargo.exe",
+                "args": [
+                    "clean"
+                ]
+            },
         }
     ]
 }

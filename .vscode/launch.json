@@ -27,8 +27,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C(gcc) Build",
-            // "postDebugTask": "Delete Build Files",
+            "preLaunchTask": "gcc Build",
+            // "postDebugTask": "Clean C/C++ Build Files",
             "presentation": {
                 "hidden": false,
                 "order": 1,
@@ -63,8 +63,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C++(g++) Build",
-            // "postDebugTask": "Delete Build Files",
+            "preLaunchTask": "g++ Build",
+            // "postDebugTask": "Clean C/C++ Build Files",
             "presentation": {
                 "hidden": false,
                 "order": 1,
@@ -72,24 +72,26 @@
             }
         },
 
-        // Rust调试配置
-        {
-            "name": "Rust调试",
-            "type": "lldb",
-            "request": "launch",
-            "args": [],
-            "cwd": "${cwd}",
-            "env": {},
-            "cargo": {
-                "args": [
-                    "build",
-                    "--bin=${fileBasenameNoExtension}"
-                ],
-                "filter": {
-                    "name": "${fileBasenameNoExtension}",
-                    "kind": "bin"
-                }
-            },
-        }
+        // Rust调试配置，
+        // 简单运行或者调试，直接使用对应rust源代码里 main函数 上方的 Run/Debug 按钮即可
+        // 复杂调试或者构建才需要使用下面的配置
+        // {
+        //     "name": "Rust调试",
+        //     "type": "lldb",
+        //     "request": "launch",
+        //     "args": [],
+        //     "cwd": "${cwd}",
+        //     "env": {},
+        //     "cargo": {
+        //         "args": [
+        //             "build",
+        //             "--bin=${fileBasenameNoExtension}"
+        //         ],
+        //         "filter": {
+        //             "name": "${fileBasenameNoExtension}",
+        //             "kind": "bin"
+        //         }
+        //     },
+        // }
     ]
 }
