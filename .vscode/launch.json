@@ -1,19 +1,21 @@
 {   "version": "2.0.0",
     "configurations": [
-        // C 调试配置
+        // ----------------- C 调试配置 -----------------
         {
             "name": "gcc调试",
             "type": "cppdbg",
             "request": "launch",
             "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
             "args": [],
-            "stopAtEntry": false,
             "cwd": "${cwd}",
             "environment": [
                 {"name": "SOME", "value": "some-value"}
             ],
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "preLaunchTask": "gcc/Compile",
+            "postDebugTask": "Clean C/C++ Build Files",
+            "stopAtEntry": false,
             "externalConsole": false,
             "setupCommands": [
                 {
@@ -27,30 +29,31 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "gcc Build",
-            // "postDebugTask": "Clean C/C++ Build Files",
             "presentation": {
-                "hidden": false,
+                "group": "c-run",
                 "order": 1,
                 "focus": true,
+                "hidden": false,
             }
         },
 
-        // C++ 调试配置
+        // ----------------- C++ 调试配置 -----------------
         {
             "name": "g++调试",
             "type": "cppdbg",
             "request": "launch",
             "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
             "args": [],
-            "stopAtEntry": false,
             "cwd": "${cwd}",
             "environment": [
                 {"name": "SOME", "value": "some-value"}
             ],
-            "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "preLaunchTask": "g++/Compile",
+            "postDebugTask": "Clean C/C++ Build Files",
+            "stopAtEntry": false,
+            "externalConsole": false,
             "setupCommands": [
                 {
                     "description": "为 gdb 启用整齐打印",
@@ -63,35 +66,40 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++ Build",
-            // "postDebugTask": "Clean C/C++ Build Files",
             "presentation": {
-                "hidden": false,
+                "group": "cpp-run",
                 "order": 1,
                 "focus": true,
+                "hidden": false,
             }
         },
 
-        // Rust调试配置，
+        // ----------------- Rust调试配置 -----------------
         // 简单运行或者调试，直接使用对应rust源代码里 main函数 上方的 Run/Debug 按钮即可
         // 复杂调试或者构建才需要使用下面的配置
-        // {
-        //     "name": "Rust调试",
-        //     "type": "lldb",
-        //     "request": "launch",
-        //     "args": [],
-        //     "cwd": "${cwd}",
-        //     "env": {},
-        //     "cargo": {
-        //         "args": [
-        //             "build",
-        //             "--bin=${fileBasenameNoExtension}"
-        //         ],
-        //         "filter": {
-        //             "name": "${fileBasenameNoExtension}",
-        //             "kind": "bin"
-        //         }
-        //     },
-        // }
+        {
+            "name": "Rust调试",
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${cwd}",
+            "env": {},
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=${fileBasenameNoExtension}"
+                ],
+                "filter": {
+                    "name": "${fileBasenameNoExtension}",
+                    "kind": "bin"
+                }
+            },
+            "presentation": {
+                "group": "rust-run",
+                "order": 1,
+                "focus": true,
+                "hidden": false,
+            }
+        }
     ]
 }

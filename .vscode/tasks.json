@@ -1,11 +1,11 @@
 {
     "version": "2.0.0",
     "tasks": [
-        // C编译任务，使用gcc
+        // ----------------- C编译任务，使用gcc -----------------
         {
             "type": "cppbuild",
-            "label": "gcc Build",
-            "detail": "C程序编译任务",
+            "label": "gcc/Compile",
+            "detail": "gcc/C编译任务",
             "command": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
@@ -15,7 +15,7 @@
                 "${cwd}${/}build${/}${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${cwd}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -35,11 +35,11 @@
             }
         },
 
-        // C++ 编译任务，使用g++
+        // ----------------- C++ 编译任务，使用g++ -----------------
         {
             "type": "cppbuild",
-            "label": "g++ Build",
-            "detail": "C++程序编译任务",
+            "label": "g++/Compile",
+            "detail": "g++/C++程序编译任务",
             "command": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
@@ -49,7 +49,7 @@
                 "${cwd}${/}build${/}${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${cwd}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -60,7 +60,7 @@
             }
         },
 
-        // C/C++ 清理任务，删除已构建文件
+        // ----------------- C/C++ 清理任务，删除已构建文件 -----------------
         {
             "type": "shell",
             "label": "Clean C/C++ Build Files",
@@ -87,10 +87,10 @@
                 "showReuseMessage": true,
                 "clear": false
             }
-        }
+        },
 
-        // Rust 构建任务
-                {
+        // ----------------- Rust 构建任务 -----------------
+        {
             "type": "shell",
             "label": "Rust Cargo Build",
             "detail": "Rust程序编译任务",
@@ -100,7 +100,7 @@
                 "--bin=${fileBasenameNoExtension}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${cwd}"
             },
             "group": {
                 "kind": "build",
@@ -108,7 +108,7 @@
             }
         },
 
-        // Rust 清理任务
+        // ----------------- Rust 清理任务 -----------------
         {
             "type": "shell",
             "label": "Rust Cargo Clean",
