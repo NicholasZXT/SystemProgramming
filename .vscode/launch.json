@@ -2,7 +2,7 @@
     "configurations": [
         // ----------------- C 调试配置 -----------------
         {
-            "name": "gcc调试",
+            "name": "GCC调试",
             "type": "cppdbg",
             "request": "launch",
             "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
@@ -12,8 +12,12 @@
                 {"name": "SOME", "value": "some-value"}
             ],
             "MIMode": "gdb",
-            "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
-            "preLaunchTask": "gcc/Compile",
+            // 可惜下面这个配置项里不支持使用 config:xxx 进行变量展开，甚至也不支持上面的 environment 里的环境变量展开，
+            // 因为它是扩展使用的选项，只能硬编码路径
+            // "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
+            // "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "miDebuggerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "preLaunchTask": "GCC/Compile",
             "postDebugTask": "Clean C/C++ Build Files",
             "stopAtEntry": false,
             "externalConsole": false,
@@ -39,7 +43,7 @@
 
         // ----------------- C++ 调试配置 -----------------
         {
-            "name": "g++调试",
+            "name": "G++调试",
             "type": "cppdbg",
             "request": "launch",
             "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
@@ -49,8 +53,10 @@
                 {"name": "SOME", "value": "some-value"}
             ],
             "MIMode": "gdb",
-            "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
-            "preLaunchTask": "g++/Compile",
+            // "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
+            // "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "miDebuggerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "preLaunchTask": "G++/Compile",
             "postDebugTask": "Clean C/C++ Build Files",
             "stopAtEntry": false,
             "externalConsole": false,
