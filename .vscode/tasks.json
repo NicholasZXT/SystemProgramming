@@ -41,10 +41,20 @@
 
         // ----------------- C编译任务，使用gcc -----------------
         {
-            "type": "cppbuild",
+            // cppbuild 类型不支持  ${config:xxx} 变量展开，所以改为shell
+            // "type": "cppbuild",
+            "type": "shell",
             "label": "GCC/Compile",
             "detail": "GCC/C编译任务",
+            // ----------------------------------------------------------------
+            // 注意，即使这里配置了UCRT64环境下的 gcc/g++ 路径，
+            // 还需要将 UCRT64环境的 bin 目录加入到PATH环境变量里！！！
+            // 因为gcc还依赖 UCRT64环境里的其他程序，这一点对于Rust也适用。
+            // ----------------------------------------------------------------
+            // "command": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
+            // command 字段只在 shell 类型下支持使用 ${config:xxx} 进行变量展开，cppbuild类型不支持
             "command": "${config:custom.msys.home}\\ucrt64\\bin\\gcc.exe",
+            // 但是 cppbuild 类型支持 VS-Code 内置预定义变量的展开
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -75,9 +85,11 @@
 
         // ----------------- C++ 编译任务，使用g++ -----------------
         {
-            "type": "cppbuild",
+            // "type": "cppbuild",
+            "type": "shell",
             "label": "G++/Compile",
             "detail": "G++/C++程序编译任务",
+            // "command": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\g++.exe",
             "command": "${config:custom.msys.home}\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",

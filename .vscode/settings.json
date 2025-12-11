@@ -1,4 +1,9 @@
 {
     // "custom.msys.home": "C:\\MyProgramFiles\\msys64"
-    "custom.msys.home": "D:\\MyProgramFiles\\msys64"
+    "custom.msys.home": "D:\\MyProgramFiles\\msys64",
+
+    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+    "rust-analyzer.procMacro.enable": true,
+    // 避免加载 sysroot 的完整依赖图
+    "rust-analyzer.updates.channel": "stable"
 }
