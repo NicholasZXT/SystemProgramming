@@ -1,4 +1,7 @@
 {
+    // 此配置文件由C/C++扩展（扩展ID: ms-vscode.cpptools）使用
+    // 注意，此配置文件不被编译器（GCC、G++）、构建系统（CMake）使用，只是用于代码的 IntelliSense。
+    "version": 4,
     "configurations": [
         {
             "name": "Win32",
@@ -13,8 +16,8 @@
             "cStandard": "c11",
             "cppStandard": "c++11",
             "intelliSenseMode": "windows-gcc-x64",
-            "compilerPath": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe"
+            // "compilerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe"
+            "compilerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe"
         }
-    ],
-    "version": 4
+    ]
 }
