@@ -1,12 +1,50 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // ----------------- settings.json配置打印任务 -----------------
+        {
+            "type": "shell",
+            "label": "Print VS Custom Settings(Node.js)",
+            "detail": "打印自定义设置变量(Node.js版)",
+            "command": "node",
+            "args": [".vscode/print-vsc-settings.js"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Print VS Custom Settings(Python)",
+            "detail": "打印自定义设置变量(Python版)",
+            "command": "python",
+            "args": [".vscode/print-vsc-settings.py"],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+
         // ----------------- C编译任务，使用gcc -----------------
         {
             "type": "cppbuild",
-            "label": "gcc/Compile",
-            "detail": "gcc/C编译任务",
-            "command": "c:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
+            "label": "GCC/Compile",
+            "detail": "GCC/C编译任务",
+            "command": "${config:custom.msys.home}\\ucrt64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -38,9 +76,9 @@
         // ----------------- C++ 编译任务，使用g++ -----------------
         {
             "type": "cppbuild",
-            "label": "g++/Compile",
-            "detail": "g++/C++程序编译任务",
-            "command": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\g++.exe",
+            "label": "G++/Compile",
+            "detail": "G++/C++程序编译任务",
+            "command": "${config:custom.msys.home}\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",

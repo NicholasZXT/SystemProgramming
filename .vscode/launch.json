@@ -12,7 +12,7 @@
                 {"name": "SOME", "value": "some-value"}
             ],
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
             "preLaunchTask": "gcc/Compile",
             "postDebugTask": "Clean C/C++ Build Files",
             "stopAtEntry": false,
@@ -49,7 +49,7 @@
                 {"name": "SOME", "value": "some-value"}
             ],
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
             "preLaunchTask": "g++/Compile",
             "postDebugTask": "Clean C/C++ Build Files",
             "stopAtEntry": false,
