@@ -1,7 +1,16 @@
+//! Rust 基础语法
+//! 
+//! Rust 中注释有 3 种方式：
+//!   1. 顶部这种方式 `//!` 一般用于模块级别文档
+//!   2. 普通注释，使用 `//` 或者 `/*..*/`，这类注释用于解释代码逻辑，不参与文档生成。
+//!   3. 文档注释，使用 `///` 或者 `/**..*/`，这类注释可以生成 HTML 文档
+//! 文档注释内可以使用 markdown 语法
 fn main() {
     println!("Hello, Rust!");
     vairable_define();
     basic_types();
+    array_usage();
+    string_usage();
     basic_control();
 }
 
@@ -92,6 +101,18 @@ fn basic_types() {
     v2.push(1);
     v2.push(2);
     println!("vector2: {:?}", v2);
+}
+
+/// Rust数组和向量使用
+fn array_usage(){
+    println!("-------- Rust数组/向量 --------");
+    // TODO
+}
+
+/// Rust字符串使用
+fn string_usage(){
+    println!("-------- Rust字符串 --------");
+    // TODO
 }
 
 
