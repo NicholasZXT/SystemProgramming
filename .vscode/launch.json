@@ -84,22 +84,16 @@
         // 简单运行或者调试，直接使用对应rust源代码里 main函数 上方的 Run/Debug 按钮即可
         // 复杂调试或者构建才需要使用下面的配置
         {
-            "name": "Rust调试",
-            "type": "lldb",
+            // Windows下推荐使用 cppdbg 调试器类型
+            "name": "Rust调试(cppdbg)",
+            "type": "cppdbg",
             "request": "launch",
+            "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
+            // "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            "miDebuggerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
             "args": [],
             "cwd": "${cwd}",
-            "env": {},
-            "cargo": {
-                "args": [
-                    "build",
-                    "--bin=${fileBasenameNoExtension}"
-                ],
-                "filter": {
-                    "name": "${fileBasenameNoExtension}",
-                    "kind": "bin"
-                }
-            },
+            "environment": [],
             "presentation": {
                 "group": "rust-run",
                 "order": 1,
@@ -107,5 +101,31 @@
                 "hidden": false,
             }
         }
+        // ,
+        // {
+        //     // MacOS/Linux下，推荐使用 CodeLLDB 插件提供的lldb调试器
+        //     "name": "Rust调试(CodeLLDB)",
+        //     "type": "lldb",
+        //     "request": "launch",
+        //     "args": [],
+        //     "cwd": "${cwd}",
+        //     "env": {},
+        //     "cargo": {
+        //         "args": [
+        //             "build",
+        //             "--bin=${fileBasenameNoExtension}"
+        //         ],
+        //         "filter": {
+        //             "name": "${fileBasenameNoExtension}",
+        //             "kind": "bin"
+        //         }
+        //     },
+        //     "presentation": {
+        //         "group": "rust-run",
+        //         "order": 1,
+        //         "focus": true,
+        //         "hidden": false,
+        //     }
+        // }
     ]
 }
