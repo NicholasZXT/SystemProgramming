@@ -1,23 +1,35 @@
 {
-    // 此配置文件由C/C++扩展（扩展ID: ms-vscode.cpptools）使用
-    // 注意，此配置文件不被编译器（GCC、G++）、构建系统（CMake）使用，只是用于代码的 IntelliSense。
+    // 此配置文件由C/C++扩展（ms-vscode.cpptools）使用
+    // 注意，此配置文件不被编译器（GCC、G++）、构建系统（CMake）使用，只用于C/C++源码的 IntelliSense。
     "version": 4,
     "configurations": [
         {
-            "name": "Win32",
+            // 配置名称，显示在 VSCode 右下角 C/C++ 配置下拉框
+            "name": "Windows-GCC-ucrt64",
+            // C语言标准，可选：c99 / c11 / c17 / c23 等
+            "cStandard": "c11",
+            // C++语言标准，可选：c++11 / c++17 / c++20 / c++23
+            "cppStandard": "c++11",
+            // IntelliSense模式，必须和编译器匹配，默认为 ${default}
+            // MSVC：windows-msvc-x64
+            // MinGW GCC：windows-gcc-x64
+            // Linux GCC：linux-gcc-x64
+            // macOS clang：macos-clang-x64
+            "intelliSenseMode": "windows-gcc-x64",
+            // 编译器路径：IntelliSense会读取该编译器内置头文件、预定义宏
+            // "compilerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe"
+            "compilerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
+            // 头文件搜索路径（仅用于 IntelliSense 查找 #include）
+            // ${workspaceFolder} 代表当前工作区根目录，** 表示递归遍历子目录
             "includePath": [
                 "${workspaceFolder}/**"
             ],
+            // 全局预定义宏，相当于代码里 #define XXX YYY，给IntelliSense识别
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
-            ],
-            "cStandard": "c11",
-            "cppStandard": "c++11",
-            "intelliSenseMode": "windows-gcc-x64",
-            // "compilerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe"
-            "compilerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe"
+            ]
         }
     ]
 }

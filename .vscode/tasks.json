@@ -49,7 +49,7 @@
             // ----------------------------------------------------------------
             // 注意，即使这里配置了UCRT64环境下的 gcc/g++ 路径，
             // 还需要将 UCRT64环境的 bin 目录加入到PATH环境变量里！！！
-            // 因为gcc还依赖 UCRT64环境里的其他程序，这一点对于Rust也适用。
+            // 因为gcc还依赖 UCRT64环境里的其他程序（链接器等），这一点对于Rust也适用。
             // ----------------------------------------------------------------
             // "command": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gcc.exe",
             // command 字段只在 shell 类型下支持使用 ${config:xxx} 进行变量展开，cppbuild类型不支持
@@ -84,6 +84,7 @@
         },
 
         // ----------------- C++ 编译任务，使用g++ -----------------
+        // 这里配置的编译任务只适合单文件编译，多文件编译要使用 CMake
         {
             // "type": "cppbuild",
             "type": "shell",
@@ -144,7 +145,12 @@
             "type": "shell",
             "label": "Rust Cargo Build",
             "detail": "Rust程序编译任务",
-            "command": "cargo.exe",
+            // cargo.exe 会自动调用 rustc.exe 进行编译，并根据当前toolchain底层的ABI，
+            // 搜索当前平台的链接器（gcc/g++/ld 等）进行构建，不需要手动指定MSVC或MinGW的链接器路径。
+            // MSYS2的MinGW / UCRT 环境需要在 PATH 变量中；
+            // 使用MSVC的话，需要使用 "VS开发者命令行" 进入配置好VS Build Tools路径的环境。
+            "command": "cargo",
+            // cargo 默认编译输出目录为 target/debug，使用 --release 参数则输出到 target/release
             "args": [
                 "build",
                 "--bin=${fileBasenameNoExtension}"
@@ -155,9 +161,18 @@
             "group": {
                 "kind": "build",
                 "isDefault": false
+            },
+            // rust-analyzer 配套的问题匹配器，把编译错误映射到源码
+            "problemMatcher": "$rustc",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
             }
         },
-
         // ----------------- Rust 清理任务 -----------------
         {
             "type": "shell",
@@ -176,6 +191,14 @@
                     "clean"
                 ]
             },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
         }
     ]
 }

@@ -3,6 +3,7 @@
         // ----------------- C 调试配置 -----------------
         {
             "name": "GCC调试",
+            // 调试器类型：cppdbg 是 C/C++ 扩展标准适配 gdb 的调试后端
             "type": "cppdbg",
             "request": "launch",
             "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
@@ -11,13 +12,17 @@
             "environment": [
                 {"name": "SOME", "value": "some-value"}
             ],
+            // MIMode：指定使用gdb
             "MIMode": "gdb",
+            // gdb可执行文件路径，ucrt64版本的gdb，注意和MSYS2路径匹配
             // 可惜下面这个配置项里不支持使用 config:xxx 进行变量展开，甚至也不支持上面的 environment 里的环境变量展开，
             // 因为它是扩展使用的选项，只能硬编码路径
             // "miDebuggerPath": "${config:custom.msys.home}\\ucrt64\\bin\\gdb.exe",
             // "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
             "miDebuggerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
+            // 调试前先执行 tasks.json 里的编译任务
             "preLaunchTask": "GCC/Compile",
+            // 调试结束，执行 tasks.json 里的清理任务
             "postDebugTask": "Clean C/C++ Build Files",
             "stopAtEntry": false,
             "externalConsole": false,
@@ -34,7 +39,7 @@
                 }
             ],
             "presentation": {
-                "group": "c-run",
+                "group": "cpp",
                 "order": 1,
                 "focus": true,
                 "hidden": false,
@@ -73,7 +78,7 @@
                 }
             ],
             "presentation": {
-                "group": "cpp-run",
+                "group": "cpp",
                 "order": 1,
                 "focus": true,
                 "hidden": false,
@@ -81,51 +86,105 @@
         },
 
         // ----------------- Rust调试配置 -----------------
-        // 简单运行或者调试，直接使用对应rust源代码里 main函数 上方的 Run/Debug 按钮即可
+        // 简单运行或者调试，直接使用对应rust源代码里CodeLens显示在 main函数 上方的 Run/Debug 按钮即可
         // 复杂调试或者构建才需要使用下面的配置
+        // ========== 配置1：MSVC ABI 目标，使用 cppvsdbg（微软调试器，C/C++扩展） ==========
+        // 需要通过专用的 VS 开发者终端（例如「x64 Native Tools Command Prompt for VS 2022」）进入MSVC的环境，否则会报找不到链接器的错误
         {
-            // Windows下推荐使用 cppdbg 调试器类型
-            "name": "Rust调试(cppdbg)",
+            // 调试适配器类型：cppvsdbg，来自微软C/C++扩展，适配PDB符号
+            "type": "cppvsdbg",
+            // launch=启动新程序；attach=附加到已经运行的进程
+            "request": "launch",
+            // 调试面板显示的名称
+            "name": "Debug Rust (MSVC)",
+            // 待调试exe路径，注意是编译后的产出文件，不是源文件
+            "program": "${workspaceFolder}${/}target${/}debug${/}${fileBasenameNoExtension}.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            // true：自动在main入口停下；false：直接运行到断点
+            "stopAtEntry": false,
+            // 控制台输出位置：integratedTerminal=VS内置终端；external=独立黑窗口
+            "console": "integratedTerminal",
+            // 额外环境变量，一般MSVC不需要在这里填（依赖终端提前vcvars初始化）
+            "environment": [],
+            // PDB符号搜索路径，默认会自动在exe同目录查找，一般不用改
+            "symbolSearchPath": "",
+            // natvis，美化Rust类型（可选，强烈推荐）
+            // "visualizerFile": "${workspaceFolder}/.vscode/rust.natvis",
+
+            // 这里没有配置 preLaunchTask，因为 MSVC 编译依赖 `vcvars` 环境，task 运行环境和调试会话环境需要保持一致；
+            // "preLaunchTask": "Rust Cargo Build",
+            // "postDebugTask": "Rust Cargo Clean",
+
+            "logging": {
+                // 是否打印模块加载日志，调试异常时打开
+                "moduleLoad": false,
+                "trace": false
+            },
+            "presentation": {
+                "group": "rust",
+                "order": 1,
+                "focus": true,
+                "hidden": false,
+            }
+        },
+        // ========== 配置2：GNU MinGW ABI 目标，使用 CodeLLDB（lldb调试器） ==========
+        {
+            // 调试适配器类型 lldb，来自CodeLLDB扩展，适配DWARF符号
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Rust (GNU MinGW)",
+            "program": "${workspaceFolder}${/}target${/}debug${/}${fileBasenameNoExtension}.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            // 传给被调试程序的环境变量
+            "env": {},
+            // 启动调试前自动执行cargo build编译
+            "preLaunchTask": "Rust Cargo Build",
+            "postDebugTask": "Rust Cargo Clean",
+            // 源码路径映射，一般Windows MinGW场景不需要
+            // "sourceMap": [],
+            "initCommands": [
+                // LLDB初始化命令，加载Rust美化脚本（CodeLLDB自带，一般不用手动加，这里仅作示意）
+                // "command script import \"${env:HOME}/.lldb/rust.py\""
+            ],
+            "presentation": {
+                "group": "rust",
+                "order": 1,
+                "focus": true,
+                "hidden": false,
+            }
+        },
+        // ========== 配置3：GNU MinGW ABI 目标，使用  cppdbg（微软调试器，C/C++扩展） ==========
+        // cppdbg（不是上面的cppvsdbg）本身**不是调试器**，它只是 C/C++ 扩展里的 MI 协议适配器，调用外部 MinGW 的 `gdb.exe` 来调试；
+        // 这套 `cppdbg + gdb` 虽然可以调试 MinGW-GNU ABI、DWARF 符号的 Rust 程序，但是综合体验**弱于 CodeLLDB 的 `lldb`**。
+        {
             "type": "cppdbg",
             "request": "launch",
-            "program": "${cwd}${/}build${/}${fileBasenameNoExtension}.exe",
+            "name": "Debug Rust GNU (cppdbg + gdb)",
+            "program": "${cwd}${/}target${/}debug${/}${fileBasenameNoExtension}.exe",
             // "miDebuggerPath": "C:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
             "miDebuggerPath": "D:\\MyProgramFiles\\msys64\\ucrt64\\bin\\gdb.exe",
             "args": [],
             "cwd": "${cwd}",
             "environment": [],
+            // 启动调试前自动执行cargo build编译
+            "preLaunchTask": "Rust Cargo Build",
+            "postDebugTask": "Rust Cargo Clean",
+            "setupCommands": [
+                {
+                    "description": "开启gdb美化打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
             "presentation": {
-                "group": "rust-run",
+                "group": "rust",
                 "order": 1,
                 "focus": true,
                 "hidden": false,
             }
-        }
-        // ,
-        // {
-        //     // MacOS/Linux下，推荐使用 CodeLLDB 插件提供的lldb调试器
-        //     "name": "Rust调试(CodeLLDB)",
-        //     "type": "lldb",
-        //     "request": "launch",
-        //     "args": [],
-        //     "cwd": "${cwd}",
-        //     "env": {},
-        //     "cargo": {
-        //         "args": [
-        //             "build",
-        //             "--bin=${fileBasenameNoExtension}"
-        //         ],
-        //         "filter": {
-        //             "name": "${fileBasenameNoExtension}",
-        //             "kind": "bin"
-        //         }
-        //     },
-        //     "presentation": {
-        //         "group": "rust-run",
-        //         "order": 1,
-        //         "focus": true,
-        //         "hidden": false,
-        //     }
-        // }
+        },
     ]
 }

@@ -10,4 +10,5 @@ readme = "README.md"
 
 [[bin]]
 name = "hello"
+# 下面这行会让 rust-analyzer 在对应rust源代码里显示 CodeLens 的 Run / Debug 按钮并正常生效
 path = "src/basic_rust/hello.rs"

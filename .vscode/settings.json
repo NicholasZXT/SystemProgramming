@@ -1,9 +1,53 @@
 {
+    // ============ 自定义变量（提供给tasks.json使用） ============
     // "custom.msys.home": "C:\\MyProgramFiles\\msys64"
     "custom.msys.home": "D:\\MyProgramFiles\\msys64",
 
-    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+    // ============ Rust‑analyzer 核心行为配置 ============
+    // 是否保存文件后自动执行 cargo check 做语法类型检查
+    "rust-analyzer.checkOnSave": true,
+    // 执行check使用的命令，默认cargo check；可改为clippy检查："cargo clippy"
+    "rust-analyzer.check.command": "cargo check",
+    // 检查的额外参数，例如开启全部警告 ["--", "-W", "all"]
+    "rust-analyzer.check.extraArgs": [],
+    // 显示变量类型内联提示
+    "rust-analyzer.inlayHints.typeHints.enable": true,
+    // 显示函数参数名内联提示
+    "rust-analyzer.inlayHints.parameterHints.enable": true,
+    // 显示链式调用返回类型提示
+    "rust-analyzer.inlayHints.chainingHints.enable": true,
+    // 显示闭包返回值类型提示
+    "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
+    // 显示隐式生命周期参数提示
+    "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "skip_trivial",
+    // rustfmt额外命令参数
+    "rust-analyzer.rustfmt.extraArgs": [],
+
+    "rust-analyzer.imports.granularity.enforce": false,
+    "rust-analyzer.imports.group.enable": true,
+    "rust-analyzer.imports.granularity.group": "crate",
+
+    // 启用 proc macro 支持（tokio、serde 这类宏必须开！）
     "rust-analyzer.procMacro.enable": true,
-    // 避免加载 sysroot 的完整依赖图
-    "rust-analyzer.updates.channel": "stable"
+    // 自动检测Cargo工作区，一般保持true
+    "rust-analyzer.cargo.autoreload": true,
+    // 设置需要编译的cargo features，例如 ["serde/json"]
+    "rust-analyzer.cargo.features": [],
+    // 指定编译目标triple，例如 "x86_64-pc-windows-msvc" / "x86_64-pc-windows-gnu"，null使用rustup默认
+    "rust-analyzer.cargo.target": null,
+
+    // 给rust‑analyzer的Runnable（CodeLens Run/Debug按钮）设置额外环境变量
+    // 支持按平台、正则掩码匹配不同运行目标（二进制/测试用例）
+    "rust-analyzer.runnables.extraEnv": [
+        {
+            "platform": "win32",
+            "env": {}
+        }
+    ],
+
+    // 自动格式化：保存时 rustfmt
+    "[rust]": {
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    }
 }

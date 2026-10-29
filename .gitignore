@@ -32,7 +32,7 @@
 *.app
 #.pdb
 
-# 构建输出目录
+# CMake构建约定输出目录
 /build/
 # Added by cargo, for rust
 /target

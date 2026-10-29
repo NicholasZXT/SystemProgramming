@@ -5,7 +5,7 @@
 
 ```txt
 system-programming/
-├── build/                # 编译输出目录
+├── build/                # C/C++（CMake）产物编译输出目录
 ├── cmake-build-debug/    # 如果使用CMake和IDE如CLion, 这里存放构建文件
 ├── docs/                 # 文档（设计文档、API文档等）
 ├── include/              # 头文件 (公开接口)
@@ -18,9 +18,8 @@ system-programming/
 │   └── main.cpp          # 主程序入口
 ├── lib/                  # 第三方库或预编译库
 ├── test/                 # 测试代码
-│   ├── unit_tests/       # 单元测试
-│   └── integration_tests/ # 集成测试
 ├── scripts/              # 脚本文件（构建脚本、部署脚本等）
+├── target/               # Rust产物编译输出目录
 ├── tools/                # 开发工具或配置文件
 ├── .gitignore            # Git忽略规则
 ├── CMakeLists.txt        # CMake构建系统配置文件
